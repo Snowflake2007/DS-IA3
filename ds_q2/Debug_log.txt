@@ -1,0 +1,40 @@
+DEBUG LOG
+
+Student details: PRN: 202501100071  |  S = 71  |  Hashing: Mid-square  |  Collision handling: Separate chaining  |  Table size: 13
+
+This log records the development and testing carried out across the six Git commits. 
+Commit 1: dataset generation added
+What I tried: I generated 20 student-mark values using the formula (S + 13 * i) % 100, with S = 71. I printed the generated values to check the dataset.
+What broke: No specific issue was recorded during this step.
+How I fixed it: I compiled and ran the program to verify the generated sequence, then committed the dataset-generation code.
+
+
+Commit 2: mid-square hash function implemented
+What I tried: I added the midSquareHash() function. It squares the key, extracts the middle two digits using (sq / 10) % 100, and maps the result to a table slot using % M.
+What broke: A compilation error occurred while adding this function. The exact compiler message was not recorded.
+How I fixed it: I corrected the code and tested the function again. For example, key 71 gives square 5041, middle value 04, and hash slot 4.
+
+
+Commit 3: node struct and table array added
+What I tried: I created the Node structure with marks and next fields, declared the table array of size M, and initialized every table slot to nullptr.
+What broke: No specific issue was recorded during this step.
+How I fixed it: I checked that all slots were initialized before insertion and committed the node structure and table setup.
+
+
+Commit 4: insert and display added, head insertion
+What I tried: I implemented insertion by creating a node and placing it at the beginning (head) of the linked list at the calculated hash slot. I also added a function to display the table.
+What broke: The nodes in a chain appeared in the reverse of their original insertion order because every new node was inserted at the head.
+How I fixed it: I observed and recorded the reversed order. I then decided to change the insertion approach so that new nodes would be added at the end of the chain.
+
+
+Commit 5: separate chaining implemented, append at end
+What I tried: I replaced head insertion with append-at-end insertion. The program traverses the chain until the last node and links the new node there.
+What broke: The earlier head-insertion approach did not preserve the order in which the keys were generated.
+How I fixed it: I stopped using head insertion because it reversed the chain order. Append-at-end insertion preserved the original order; for example, the chain displayed as 23 -> 1 instead of 1 -> 23.
+
+
+Commit 6: duplicate check, memory cleanup, final output formatting
+What I tried: I updated insertKey() to return a Boolean value, added a duplicate-key check, added deletion of allocated nodes, and improved the output formatting with arrows between nodes.
+What broke: No additional specific error was recorded during this step. Duplicate insertion needed to be handled so that the same key would not be stored twice.
+How I fixed it: I checked each chain before insertion and returned false if the key was already present. I also freed the dynamically allocated nodes at the end of the program and tested duplicate insertion using insertKey(71) twice.
+
